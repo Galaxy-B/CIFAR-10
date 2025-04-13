@@ -14,14 +14,10 @@ pip install -r requirements.txt
 
 ## Running
 
-请确保在 **项目根目录** 下运行程序：
+请确保在 **项目根目录** 通过以下指令运行程序：
 
 ```Shell
 python src\main.py
 ```
 
-或者：
-
-```
-python src.main
-```
+或以 **项目根目录** 为 VS Code **工作目录**，打开 `src\main.py` 文件，点击 `Run Code` 来运行程序。 
