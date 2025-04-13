@@ -11,7 +11,7 @@ def calculate_lbp(image: ndarray):
 
     # 计算LBP特征及其直方图
     lbp: ndarray = local_binary_pattern(gray, P=8, R=1, method="uniform")
-    max_bin = lbp.max() + 1
+    max_bin = int(lbp.max() + 1)
     hist, _ = np.histogram(lbp.ravel(), bins=max_bin, range=(0, max_bin))
 
     # 归一化直方图

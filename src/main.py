@@ -9,17 +9,22 @@ if __name__ == "__main__":
     train_images, train_labels = load_image("data\\train")
     test_images, test_labels = load_image("data\\test")
 
+    print(f"train data -> images: {len(train_images)}, labels: {len(train_labels)}")
+    print(f"test data -> images: {len(test_images)}, labels: {len(test_labels)}")
+
     # 提取特征
     train_features = pd.DataFrame()
     test_features = pd.DataFrame()
 
-    # for feat_handle in [lbp]:
-    #     train_features = pd.concat(train_features, feat_handle(train_images), axis=1)
-    #     test_features = pd.concat(test_features, feat_handle(test_images), axis=1)
+    # --- 将提取特征的接口注册在这里 ---
+    feat_handles = [lbp, gabor_filter_features]
 
-    train_features_gabor = gabor_filter_features(train_images)
-    test_features_gabor = gabor_filter_features(test_images)
-    print(train_features_gabor.shape, train_features_gabor)
+    train_features = pd.concat([handle(train_images) for handle in feat_handles], axis=1)
+    test_features = pd.concat([handle(test_images) for handle in feat_handles], axis=1)
+
+    print(f"train features shape -> {train_features.shape}")
+    print(f"test features shape -> {test_features.shape}")
+
     # TODO: 特征处理
 
     # TODO: 训练模型
