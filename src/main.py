@@ -19,7 +19,8 @@ if __name__ == "__main__":
     test_features = pd.DataFrame()
 
     # --- 将提取特征的接口注册在这里 ---
-    feat_handles = [lbp, gabor_filter_features, moments, hog_features]
+    # feat_handles = [lbp, gabor_filter_features, moments, hog_features]
+    feat_handles = [lbp, gabor_filter_features, moments]
 
     train_features = pd.concat([handle(train_images) for handle in feat_handles], axis=1)
     test_features = pd.concat([handle(test_images) for handle in feat_handles], axis=1)
