@@ -3,6 +3,8 @@ import pandas as pd
 from load_data.load_image import load_image
 from extract_feature.lbp import lbp
 from extract_feature.gabor_filter import gabor_filter_features
+from extract_feature.moments import moments
+from extract_feature.hog import hog_features
 
 if __name__ == "__main__":
     # 读取图片
@@ -17,7 +19,7 @@ if __name__ == "__main__":
     test_features = pd.DataFrame()
 
     # --- 将提取特征的接口注册在这里 ---
-    feat_handles = [lbp, gabor_filter_features]
+    feat_handles = [lbp, gabor_filter_features, moments, hog_features]
 
     train_features = pd.concat([handle(train_images) for handle in feat_handles], axis=1)
     test_features = pd.concat([handle(test_images) for handle in feat_handles], axis=1)
