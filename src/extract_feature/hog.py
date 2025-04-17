@@ -13,7 +13,7 @@ def calculate_hog(image: ndarray):
     features = hog(
         gray,
         orientations=9,
-        pixels_per_cell=(4, 4),     # 小cell以更细致捕捉局部结构
+        pixels_per_cell=(8, 8),     # 小cell以更细致捕捉局部结构
         cells_per_block=(2, 2),     # 每个block包含2x2个cell
         block_norm='L2-Hys',
         transform_sqrt=True,
