@@ -3,6 +3,8 @@ from sklearn.preprocessing import StandardScaler
 
 from load_data.load_image import load_image
 
+from augment.data_augment import augment_image
+
 from extract_feature.lbp import lbp
 from extract_feature.gabor_filter import gabor_filter_features
 from extract_feature.moments import moments
@@ -23,6 +25,20 @@ if __name__ == "__main__":
     print(f"train data -> images: {len(train_images)}, labels: {len(train_labels)}")
     print(f"test data -> images: {len(test_images)}, labels: {len(test_labels)}")
 
+    # --- 对训练集做数据增强 ---
+    augmented_images = []
+    augmented_labels = []
+
+    for img, label in zip(train_images, train_labels):
+        augmented = augment_image(img)
+        augmented_images.extend(augmented)
+        augmented_labels.extend([label] * len(augmented))
+
+    train_images = augmented_images
+    train_labels = augmented_labels
+
+    print(f"增强后 train data -> images: {len(train_images)}, labels: {len(train_labels)}")
+
     # 提取特征
     train_features = pd.DataFrame()
     test_features = pd.DataFrame()
@@ -35,8 +51,11 @@ if __name__ == "__main__":
     # train_features = pd.concat([handle(train_images) for handle in feat_handles], axis=1)
     # test_features = pd.concat([handle(test_images) for handle in feat_handles], axis=1)
 
-    train_features = pd.concat([handle(train_images) for handle in feat_handles], axis=1).values
+    train_features = pd.concat([handle(train_images) for handle in feat_handles], axis=1)
     test_features = pd.concat([handle(test_images) for handle in feat_handles], axis=1).values
+
+    train_features.head(10).to_csv("data.csv")
+    train_features = train_features.values
 
     print(f"train features shape -> {train_features.shape}")
     print(f"test features shape -> {test_features.shape}")
@@ -49,14 +68,14 @@ if __name__ == "__main__":
     # train_features = scaler.fit_transform(train_features)
     # test_features = scaler.fit_transform(test_features)
 
-    print(f"train features shape after PCA -> {train_features.shape}")
-    print(f"test features shape after PCA -> {test_features.shape}")
+    # print(f"train features shape after PCA -> {train_features.shape}")
+    # print(f"test features shape after PCA -> {test_features.shape}")
 
     # 训练模型
     # model = KNeighborsClassifier(n_neighbors=5)
     # model.fit(train_features, train_labels)
 
-    model = SVC(kernel='linear', C=1.0, random_state=42)
+    model = SVC(kernel='linear', C=0.5, random_state=42)
     model.fit(train_features, train_labels)
 
     # TODO: 评估模型

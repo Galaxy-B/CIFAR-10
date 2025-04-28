@@ -10,7 +10,7 @@ def calculate_lbp(image: ndarray):
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
     # 计算LBP特征及其直方图
-    lbp: ndarray = local_binary_pattern(gray, P=8, R=1, method="uniform")
+    lbp: ndarray = local_binary_pattern(gray, P=4, R=2, method="uniform")
     max_bin = int(lbp.max() + 1)
     hist, _ = np.histogram(lbp.ravel(), bins=max_bin, range=(0, max_bin))
 
