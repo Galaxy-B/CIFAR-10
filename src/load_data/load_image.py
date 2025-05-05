@@ -2,13 +2,10 @@ import os
 import cv2
 
 def equalize_image(img):
-    """
-    对单张图像做直方图均衡化。
-    - 灰度图：直接 cv2.equalizeHist
-    - 彩色图：转换到 YCrCb 空间，对亮度通道做均衡化，再转回 BGR
-    """
-    # 将图像转换为灰度图
+    # 将图像转换为灰度图后做直方图均衡化
     # return cv2.equalizeHist(cv2.cvtColor(img, cv2.COLOR_BGR2GRAY))
+    
+    # 将图像转换为灰度图
     # return cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     return img
 

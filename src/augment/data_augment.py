@@ -1,4 +1,3 @@
-import numpy as np
 import cv2
 
 def augment_image(img):

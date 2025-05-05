@@ -2,16 +2,13 @@ import cv2
 import numpy as np
 import pandas as pd
 
+"""
+统一格式接口:
+输入 -> 图像列表: list[ndarray]
+输出 -> 特征值DataFrame: pd.DataFrame
+"""
+
 def gabor_filter_features(images: list) -> pd.DataFrame:
-    """
-    使用Gabor滤波器提取图像特征并返回DataFrame。
-    
-    参数:
-    images (list[ndarray]): 输入图像列表,ndarray格式的图像。
-    
-    返回:
-    pd.DataFrame: 提取的特征值DataFrame,每行对应一张图像的特征向量。
-    """
     # Gabor滤波器的参数设置
     kernels = []
     for theta in np.arange(0, np.pi, np.pi / 4):  # 设置不同方向的Gabor核

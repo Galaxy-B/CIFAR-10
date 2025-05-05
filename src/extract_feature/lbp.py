@@ -19,7 +19,7 @@ def calculate_lbp(image: ndarray):
     return hist / (hist.sum() + 1e-6)
 
 """
-特征提取使用统一格式的接口, 以便直接嵌入框架:
+统一格式接口:
 输入 -> 图像列表: list[ndarray]
 输出 -> 特征值DataFrame: pd.DataFrame
 """
